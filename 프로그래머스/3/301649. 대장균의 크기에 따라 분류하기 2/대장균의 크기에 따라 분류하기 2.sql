@@ -1,0 +1,15 @@
+-- 코드를 작성해주세요
+SELECT  ID
+    ,   CASE 
+            WHEN SIZE_GUBUN = 4 THEN 'CRITICAL'
+            WHEN SIZE_GUBUN = 3 THEN 'HIGH'
+            WHEN SIZE_GUBUN = 2 THEN 'MEDIUM'
+            WHEN SIZE_GUBUN = 1 THEN 'LOW'
+        END AS COLONY_NAME    
+FROM
+(
+    SELECT  ID
+        ,   NTILE(4) OVER (ORDER BY SIZE_OF_COLONY) AS SIZE_GUBUN
+    FROM ECOLI_DATA 
+) AS A
+ORDER BY ID ASC
